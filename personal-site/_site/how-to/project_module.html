@@ -198,9 +198,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>In the my_fx folder, create a new file called “<strong>init</strong>.py”</li>
 <li>Create a new .py script that will contain your functions e.g.&nbsp;utilities.py, tables.py</li>
 <li>Define Python functions within the script</li>
-<li>Import functions using from [folder].[script] import [function]</li>
+<li>Import functions using from [folder].[script] import [function] framework</li>
 </ol>
-<div id="7f15a336" class="cell" data-execution_count="1">
+<div id="1ee32e13" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example function to format p-values in a column of a pandas data frame</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># defined in a script named utilities.py</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> format_pval_df(pvals):</span>
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pvals.<span class="bu">apply</span>(<span class="kw">lambda</span> p: <span class="st">"&lt;0.0001"</span> <span class="cf">if</span> p <span class="op">&lt;</span> <span class="fl">0.0001</span> <span class="cf">else</span> <span class="ss">f"</span><span class="sc">{</span>p<span class="sc">:.</span>{digits}f<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c52e0102" class="cell" data-execution_count="2">
+<div id="16c072fe" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the custom function</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> my_fx.utilities <span class="im">import</span> format_pval_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
