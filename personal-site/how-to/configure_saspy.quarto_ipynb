@@ -1,0 +1,179 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Configure SASPy in venv\"\n",
+        "html:\n",
+        "    toc: true\n",
+        "\n",
+        "execute:\n",
+        "  eval: false\n",
+        "\n",
+        "jupyter: py_env\n",
+        "---\n",
+        "\n",
+        "\n",
+        "# Configure SASPy\n",
+        "Integrating Python and SAS with [SASPy](https://sassoftware.github.io/saspy/index.html), is a great way to take advantage of the data manipulation capabilities of Python and the analytical capabilities of SAS. The following instructions are to configure a locally installed version of SAS with Python (refer to the SASPy documentation for additional options). This combination streamlines the process of preparing and manipulating data with Python, performing statistical procedures with SAS, and preparing reports with Quarto all within one .qmd file.\n",
+        "\n",
+        "\n",
+        "## Install SASPy\n",
+        "1. Activate the Python virtual environment\n",
+        "2. Install SASPy"
+      ],
+      "id": "7f2600fd"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "pip install saspy"
+      ],
+      "id": "c05b8cc1",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Register the virtual environment\n",
+        "If the goal is to render Quarto documents that take advantage of SAS and Python, then this is a necessary step to ensure that rendering a Quarto document will load the proper virtual environment. In order for Quarto to load a virtual environment, it must be registered. In a PowerShell terminal prompt use the following command to see the available registered evironments."
+      ],
+      "id": "76872d48"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "jupyter kernelspec list"
+      ],
+      "id": "8a458e69",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "A list of \"Available kernels:\" should appear. If the virtual environment is not listed, then register it with the following command."
+      ],
+      "id": "c7201b87"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "python -m ipykernel install --user --name=[venv] --display-name=[\"venv\"]"
+      ],
+      "id": "241b558a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "If the environment is already listed, then proceed to the next step.\n",
+        "\n",
+        "## Configure SASPy\n",
+        "\n",
+        "1. Start a Python console or continue in the activated Python environment in PowerShell.\n",
+        "2. Create a personal template cfg file. This creates a file that will be modified and used to configure SASPy. When executing the autocft.main() command, the path of the personal template file will be displayed upon execution. Make not of the path as this file will need to be modified.\n"
+      ],
+      "id": "9daab4be"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Load the autocfg function from the saspy module\n",
+        "from saspy import autocfg\n",
+        "\n",
+        "# Create a template personal cfg file that is used to configure SAS sessions\n",
+        "autocfg.main() "
+      ],
+      "id": "3669381e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "3. Navigate to the path of the displayed directory\n",
+        "4. Open the sascfg_personal.py file\n",
+        "5. Modify the file to set the path of the Java run time executable\n",
+        "    * Install [Java SE Runtime Environment](https://www.java.com/en/download/manual.jsp) if needed\n",
+        "6. Save and close the file\n"
+      ],
+      "id": "374fbdb2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "autogen_winlocal = {\n",
+        "\t\"java\"      : \"C:\\\\Program Files (x86)\\\\Java\\\\jre1.8.0_451\\\\bin\\\\java.exe\",\n",
+        "\t\"encoding\"  : \"windows-1252\"}"
+      ],
+      "id": "50c9a9d4",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Check that SASPy can start a session"
+      ],
+      "id": "2b8f6dc9"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import saspy\n",
+        "\n",
+        "sas = saspy.SASsession(cfgname = 'autogen_winlocal')"
+      ],
+      "id": "ad960b3d",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Configure the yaml header of Quarto document\n",
+        "Once SASPy is configured, the Quarto document can be set to use a specific python environment. Simpy modify the yaml header of the quarto document to the name of the desired virtual environment without the square brackets.\n"
+      ],
+      "id": "049b74d6"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "jupyter: [venv]\n",
+        "---"
+      ],
+      "id": "adc82130",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "py_env",
+      "language": "python",
+      "display_name": "py_env",
+      "path": "C:\\Users\\rodrica2\\AppData\\Roaming\\jupyter\\kernels\\py_env"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
