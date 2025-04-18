@@ -1,6 +1,6 @@
 [build]
   base = "personal-site"
-  command = "quarto render"
+  command = "netlify/install.sh && quarto render"
   publish = "_site"
 
 [build.environment]
