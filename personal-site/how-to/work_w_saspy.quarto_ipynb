@@ -1,0 +1,169 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Work with SASPy\"\n",
+        "html:\n",
+        "    toc: true\n",
+        "\n",
+        "execute:\n",
+        "  eval: true\n",
+        "\n",
+        "jupyter: py_env\n",
+        "---\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "# Initiate a session\n",
+        "Once SASPy is configured the first step in working with SASPy is to initiate a session. This will launch a SAS session in the background that will be available to run statistical analyses on any input data. "
+      ],
+      "id": "ac78ec7f"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Data manipulation\n",
+        "import pandas as pd\n",
+        "\n",
+        "# Module with sample data set\n",
+        "import bambi as bmb\n",
+        "\n",
+        "# Interface with SAS\n",
+        "import saspy\n",
+        "\n",
+        "# Loads a custom function\n",
+        "from my_fx.utilities import format_pval_df"
+      ],
+      "id": "f5d505c3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "sas = saspy.SASsession(cfgname = 'autogen_winlocal')"
+      ],
+      "id": "e5bb37f5",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Load an example data set"
+      ],
+      "id": "d566f627"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "data = bmb.load_data(\"sleepstudy\")"
+      ],
+      "id": "8a61cdaa",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "data.head()"
+      ],
+      "id": "2f514117",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Send data to SAS\n",
+        "The next step in working with SASPy is to send a Pandas data frame to SAS. This command will send the data frame \"data\" to the background SAS session. Before sending data to SAS, it may be a good idea to double check that SAS has the proper formatting for dates and that the values, if categorical are recoded to comply with SAS column and value conventions. By default this data will be named _df and will be found in the work library\n"
+      ],
+      "id": "0fcf004e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "sas_data = sas.df2sd(data, verbose = False)"
+      ],
+      "id": "b550d690",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Submit SAS commands\n",
+        "The main functions to submit sas commands on data that is available in the sas session are `sas.submit()` and `sas.submitLST()`. The primary difference is that the LST version of the function will display the log and any output in the viewer when working in Positron. I personally use the LST version of the function to ensure that the SAS procedures are running correctly. When it is determined that the SAS procedures are running correctly. I then will remove the LST and then extract the tables from SAS to display in a Quarto document.  To save the output of SAS procedures I use ods output statements as in the example below. "
+      ],
+      "id": "9a3f6515"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Use sas.submitLST() to display output in viewer in an interactive session,\n",
+        "# but use sas.submit() when rendering a .qmd document.\n",
+        "c = sas.submit(\n",
+        "\"\"\"\n",
+        "ods output Tests3=type3_results;\n",
+        "\n",
+        "proc mixed data = work._df;\n",
+        "  class Subject Days;\n",
+        "  model Reaction = Days;\n",
+        "  random intercept/subject = Subject;\n",
+        "run;\n",
+        "\"\"\")"
+      ],
+      "id": "c1817955",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Retrieve ods output tables from SAS\n",
+        "In the code chunk above, we set ods output to save the Type 3 sums of squares results to a table named type3_results. We can then retrieve that table from SAS into our Python environment. Once in the Python environment, the tables can be formatted to your liking and purpose. Here's an example of how to format the Test3 table using a custom function to format the p-values.\n"
+      ],
+      "id": "392d1fa2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "type3_results = sas.sasdata(\"type3_results\", libref = \"work\").to_df()\n",
+        "\n",
+        "# Format the p values\n",
+        "type3_results[\"ProbF\"] = format_pval_df(type3_results['ProbF'])\n",
+        "\n",
+        "# Round all numberical values, set index and display\n",
+        "type3_results.round(2).set_index(\"Effect\")"
+      ],
+      "id": "b879c937",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "py_env",
+      "language": "python",
+      "display_name": "py_env",
+      "path": "C:\\Users\\rodrica2\\AppData\\Roaming\\jupyter\\kernels\\py_env"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

@@ -1,0 +1,43 @@
+---
+title: "Create a project specific module in Python"
+html:
+    toc: true
+
+execute:
+  eval: false
+
+jupyter: py_env
+---
+
+1. In venv\Lib\site-packages create a new folder "my_fx"
+2. In the my_fx folder, create a new file called "__init__.py"
+3. Create a new .py script that will contain your functions e.g. utilities.py, tables.py
+4. Define Python functions within the script
+5. Import functions using from [folder].[script] import [function] framework
+
+```{python}
+# Example function to format p-values in a column of a pandas data frame
+# defined in a script named utilities.py
+def format_pval_df(pvals):
+    """
+    Format a pandas series of p-values.
+    - If p < 0.0001, return "<0.0001"
+    - Else, format to specified number of digits
+
+    Parameters:
+    pvals : pandas Series or array-like
+    digits : int, number of decimal digits to display
+
+    Returns:
+    Formatted pandas Series of strings
+    """
+    digits=4
+
+    return pvals.apply(lambda p: "<0.0001" if p < 0.0001 else f"{p:.{digits}f}")
+
+```
+
+```{python}
+# Load the custom function
+from my_fx.utilities import format_pval_df
+```

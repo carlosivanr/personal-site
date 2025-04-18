@@ -1,0 +1,10 @@
+---
+title: "Biography"
+---
+
+
+My name is Carlos Rodriguez, and I serve as a Senior Instructor in the Department of Family Medicine at the University of Colorado Anschutz Medical Campus. In this role, I develop and maintain reproducible data pipelines, conduct statistical analyses, and provide data-driven support for a wide range of academic research projects, particularly in primary care and health services research.
+
+I hold a Ph.D. in Psychology with a concentration in Behavioral Neuroscience, and I completed postdoctoral training in functional neuroimaging. My graduate research focused on understanding how prenatal alcohol exposure impacts brain network connectivity. I also explored the application of machine learning techniques to identify non-invasive biomarkers for fetal alcohol spectrum disorders using fMRI data.
+
+In addition to my professional work, I am deeply committed to advancing diversity in science. I have mentored students from historically underrepresented backgrounds through initiatives led by the Society for Neuroscience, the University of New Mexico’s El Centro de la Raza, and the Society for the Advancement of Chicanos/Hispanics and Native Americans in Science (SACNAS), supporting their progress toward careers in biomedical and behavioral research.

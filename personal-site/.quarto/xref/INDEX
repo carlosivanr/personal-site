@@ -1,0 +1,29 @@
+{
+  "about.qmd": {
+    "about.html": "b3384385"
+  },
+  "index.qmd": {
+    "index.html": "8b8a70f8"
+  },
+  "bio.qmd": {
+    "bio.html": "40a24a1d"
+  },
+  "how-to/set_up_renv.qmd": {
+    "set_up_renv.html": "501a2dfe"
+  },
+  "how-to/setup_renv.qmd": {
+    "setup_renv.html": "ed271d4c"
+  },
+  "how-to/setup_venv.qmd": {
+    "setup_venv.html": "9d56b0be"
+  },
+  "how-to/configure_saspy.qmd": {
+    "configure_saspy.html": "2976b0e8"
+  },
+  "how-to/work_w_saspy.qmd": {
+    "work_w_saspy.html": "360f4750"
+  },
+  "how-to/project_module.qmd": {
+    "project_module.html": "c4e83130"
+  }
+}

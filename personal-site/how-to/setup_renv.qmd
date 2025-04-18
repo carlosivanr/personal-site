@@ -1,0 +1,71 @@
+---
+title: "Set up renv in R"
+html:
+    toc: true
+
+execute:
+    eval: false
+---
+
+## renv
+renv is an R package that helps you create and manage isolated project environments. It captures the specific package versions used in a project as snapshots, ensuring that your code runs consistently over time and across systems. It enables reproducible research and easy collaboration, similar to Python’s virtualenv.
+
+
+### Initialize and activate a new renv environment
+Initializing an renv is simple. Once the packages in installed simply call the following command.
+```{r}
+renv::init()
+```
+
+Once the environment is initialized, it can be activated. Once activated, it will automatically launch next time you open up the working directory (VS Code/Positron) and/or RStudio project.
+```{r}
+renv::activate()
+```
+
+### Configure .Rprofile (optional)
+By default, base R packages are installed in a system-level directory (e.g., under Program Files on Windows), while user-installed packages are typically stored in a user-specific location like AppData\Local\R.
+
+When a new renv environment is initiate, it sets up a project-local library. During package installation, if a needed package already exists elsewhere on your system, renv will create a symbolic link (symlink) to that existing package to avoid duplicating files across multiple projects. This behavior saves disk space and speeds up environment setup.
+
+However, in my workflow, I use OneDrive to access projects across multiple machines and this symlink-based approach can cause issues.
+
+To avoid symlinks entirely and ensure all packages are physically stored within the project (mimicking Python’s venv behavior), I add the following line a project’s .Rprofile file:
+
+```{r}
+options(renv.settings.use.cache = FALSE) # Set to false to prevent symlinks
+```
+
+The following commands can be used to check library paths and settings to ensure the renv is properly configured.
+```{r}
+renv::settings$use.cache()
+renv::paths$library() # Check libraries
+```
+
+### Configure .renvignore
+Upon startup, renv scans the project files to detect which R functions are used, in order to identify missing packages and prompt you to install any missing dependencies. While useful, this scanning process can slow down loading the renv, especially if your project includes large or irrelevant files such as, Word documents, PDFs, or Python libraries.
+
+The solution to overcome is to create a .renvignore file. Any file type or directory specified in this file will be excluded from scanning up loading an renv.
+
+To create the file in Positron, right-click in the Explorer pane  and choose “New File…”, then name the file .renvignore, open the saved file and add separate lines for directories or file types.
+
+```{r}
+/py_env # exclude the py_env directory
+
+*.html  # excludes all .html files
+*.yml   # excludes all .yml files
+*.ipynb # excludes all .ipynb files
+```
+
+### Install packages
+```{r}
+renv::install()
+```
+
+### Check the status of a project and record the current state of packages
+```{r}
+renv::status()
+renv::snapshot()
+```
+
+
+

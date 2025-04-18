@@ -1,0 +1,31 @@
+project:
+  type: website
+
+website:
+  title: "Carlos Rodriguez, PhD"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - bio.qmd
+      - text: "How-To"
+        menu:
+          - text: "Set up renv in R"
+            href: ./how-to/setup_renv.qmd
+          - text: "Set up venv in Python"
+            href: ./how-to/setup_venv.qmd
+          - text: "Configure SASPy"
+            href: ./how-to/configure_saspy.qmd
+          - text: "Work with SASPy"
+            href: ./how-to/work_w_saspy.qmd
+          - text: "Create a project specific module in Python"
+            href: ./how-to/project_module.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

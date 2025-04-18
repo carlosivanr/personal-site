@@ -1,0 +1,170 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "bio.html",
+    "href": "bio.html",
+    "title": "Biography",
+    "section": "",
+    "text": "My name is Carlos Rodriguez, and I serve as a Senior Instructor in the Department of Family Medicine at the University of Colorado Anschutz Medical Campus. In this role, I develop and maintain reproducible data pipelines, conduct statistical analyses, and provide data-driven support for a wide range of academic research projects, particularly in primary care and health services research.\nI hold a Ph.D. in Psychology with a concentration in Behavioral Neuroscience, and I completed postdoctoral training in functional neuroimaging. My graduate research focused on understanding how prenatal alcohol exposure impacts brain network connectivity. I also explored the application of machine learning techniques to identify non-invasive biomarkers for fetal alcohol spectrum disorders using fMRI data.\nIn addition to my professional work, I am deeply committed to advancing diversity in science. I have mentored students from historically underrepresented backgrounds through initiatives led by the Society for Neuroscience, the University of New Mexico’s El Centro de la Raza, and the Society for the Advancement of Chicanos/Hispanics and Native Americans in Science (SACNAS), supporting their progress toward careers in biomedical and behavioral research."
+  },
+  {
+    "objectID": "how-to/set_up_renv.html",
+    "href": "how-to/set_up_renv.html",
+    "title": "Set up renv in R",
+    "section": "",
+    "text": "renv is an R package that helps you create and manage isolated project environments. It captures the specific package versions used in a project as snapshots, ensuring that your code runs consistently over time and across systems. It enables reproducible research and easy collaboration, similar to Python’s virtualenv.\n\n\nInitializing an renv is simple. Once the packages in installed simply call the following command.\n\nrenv::init()\n\nOnce the environment is initialized, it can be activated. Once activated, it will automatically launch next time you open up the working directory (VS Code/Positron) and/or RStudio project.\n\nrenv::activate()\n\n\n\n\nBy default, base R packages are installed in a system-level directory (e.g., under Program Files on Windows), while user-installed packages are typically stored in a user-specific location like AppData.\nWhen a new renv environment is initiate, it sets up a project-local library. During package installation, if a needed package already exists elsewhere on your system, renv will create a symbolic link (symlink) to that existing package to avoid duplicating files across multiple projects. This behavior saves disk space and speeds up environment setup.\nHowever, in my workflow, I use OneDrive to access projects across multiple machines and this symlink-based approach can cause issues.\nTo avoid symlinks entirely and ensure all packages are physically stored within the project (mimicking Python’s venv behavior), I add the following line a project’s .Rprofile file:\n\noptions(renv.settings.use.cache = FALSE) # Set to false to prevent symlinks\n\nThe following commands can be used to check library paths and settings to ensure the renv is properly configured.\n\nrenv::settings$use.cache()\nrenv::paths$library() # Check libraries\n\n\n\n\nUpon startup, renv scans the project files to detect which R functions are used, in order to identify missing packages and prompt you to install any missing dependencies. While useful, this scanning process can slow down loading the renv, especially if your project includes large or irrelevant files such as, Word documents, PDFs, or Python libraries.\nThe solution to overcome is to create a .renvignore file. Any file type or directory specified in this file will be excluded from scanning up loading an renv.\nTo create the file in Positron, right-click in the Explorer pane and choose “New File…”, then name the file .renvignore, open the saved file and add separate lines for directories or file types.\n\n/py_env # exclude the py_env directory\n\n*.html  # excludes all .html files\n*.yml   # excludes all .yml files\n*.ipynb # excludes all .ipynb files\n\n\n\n\n\nrenv::install()\n\n\n\n\n\nrenv::status()\nrenv::snapshot()"
+  },
+  {
+    "objectID": "how-to/set_up_renv.html#renv",
+    "href": "how-to/set_up_renv.html#renv",
+    "title": "Set up renv in R",
+    "section": "",
+    "text": "renv is an R package that helps you create and manage isolated project environments. It captures the specific package versions used in a project as snapshots, ensuring that your code runs consistently over time and across systems. It enables reproducible research and easy collaboration, similar to Python’s virtualenv.\n\n\nInitializing an renv is simple. Once the packages in installed simply call the following command.\n\nrenv::init()\n\nOnce the environment is initialized, it can be activated. Once activated, it will automatically launch next time you open up the working directory (VS Code/Positron) and/or RStudio project.\n\nrenv::activate()\n\n\n\n\nBy default, base R packages are installed in a system-level directory (e.g., under Program Files on Windows), while user-installed packages are typically stored in a user-specific location like AppData.\nWhen a new renv environment is initiate, it sets up a project-local library. During package installation, if a needed package already exists elsewhere on your system, renv will create a symbolic link (symlink) to that existing package to avoid duplicating files across multiple projects. This behavior saves disk space and speeds up environment setup.\nHowever, in my workflow, I use OneDrive to access projects across multiple machines and this symlink-based approach can cause issues.\nTo avoid symlinks entirely and ensure all packages are physically stored within the project (mimicking Python’s venv behavior), I add the following line a project’s .Rprofile file:\n\noptions(renv.settings.use.cache = FALSE) # Set to false to prevent symlinks\n\nThe following commands can be used to check library paths and settings to ensure the renv is properly configured.\n\nrenv::settings$use.cache()\nrenv::paths$library() # Check libraries\n\n\n\n\nUpon startup, renv scans the project files to detect which R functions are used, in order to identify missing packages and prompt you to install any missing dependencies. While useful, this scanning process can slow down loading the renv, especially if your project includes large or irrelevant files such as, Word documents, PDFs, or Python libraries.\nThe solution to overcome is to create a .renvignore file. Any file type or directory specified in this file will be excluded from scanning up loading an renv.\nTo create the file in Positron, right-click in the Explorer pane and choose “New File…”, then name the file .renvignore, open the saved file and add separate lines for directories or file types.\n\n/py_env # exclude the py_env directory\n\n*.html  # excludes all .html files\n*.yml   # excludes all .yml files\n*.ipynb # excludes all .ipynb files\n\n\n\n\n\nrenv::install()\n\n\n\n\n\nrenv::status()\nrenv::snapshot()"
+  },
+  {
+    "objectID": "how-to/setup_renv.html",
+    "href": "how-to/setup_renv.html",
+    "title": "Set up renv in R",
+    "section": "",
+    "text": "renv is an R package that helps you create and manage isolated project environments. It captures the specific package versions used in a project as snapshots, ensuring that your code runs consistently over time and across systems. It enables reproducible research and easy collaboration, similar to Python’s virtualenv.\n\n\nInitializing an renv is simple. Once the packages in installed simply call the following command.\n\nrenv::init()\n\nOnce the environment is initialized, it can be activated. Once activated, it will automatically launch next time you open up the working directory (VS Code/Positron) and/or RStudio project.\n\nrenv::activate()\n\n\n\n\nBy default, base R packages are installed in a system-level directory (e.g., under Program Files on Windows), while user-installed packages are typically stored in a user-specific location like AppData.\nWhen a new renv environment is initiate, it sets up a project-local library. During package installation, if a needed package already exists elsewhere on your system, renv will create a symbolic link (symlink) to that existing package to avoid duplicating files across multiple projects. This behavior saves disk space and speeds up environment setup.\nHowever, in my workflow, I use OneDrive to access projects across multiple machines and this symlink-based approach can cause issues.\nTo avoid symlinks entirely and ensure all packages are physically stored within the project (mimicking Python’s venv behavior), I add the following line a project’s .Rprofile file:\n\noptions(renv.settings.use.cache = FALSE) # Set to false to prevent symlinks\n\nThe following commands can be used to check library paths and settings to ensure the renv is properly configured.\n\nrenv::settings$use.cache()\nrenv::paths$library() # Check libraries\n\n\n\n\nUpon startup, renv scans the project files to detect which R functions are used, in order to identify missing packages and prompt you to install any missing dependencies. While useful, this scanning process can slow down loading the renv, especially if your project includes large or irrelevant files such as, Word documents, PDFs, or Python libraries.\nThe solution to overcome is to create a .renvignore file. Any file type or directory specified in this file will be excluded from scanning up loading an renv.\nTo create the file in Positron, right-click in the Explorer pane and choose “New File…”, then name the file .renvignore, open the saved file and add separate lines for directories or file types.\n\n/py_env # exclude the py_env directory\n\n*.html  # excludes all .html files\n*.yml   # excludes all .yml files\n*.ipynb # excludes all .ipynb files\n\n\n\n\n\nrenv::install()\n\n\n\n\n\nrenv::status()\nrenv::snapshot()"
+  },
+  {
+    "objectID": "how-to/setup_renv.html#renv",
+    "href": "how-to/setup_renv.html#renv",
+    "title": "Set up renv in R",
+    "section": "",
+    "text": "renv is an R package that helps you create and manage isolated project environments. It captures the specific package versions used in a project as snapshots, ensuring that your code runs consistently over time and across systems. It enables reproducible research and easy collaboration, similar to Python’s virtualenv.\n\n\nInitializing an renv is simple. Once the packages in installed simply call the following command.\n\nrenv::init()\n\nOnce the environment is initialized, it can be activated. Once activated, it will automatically launch next time you open up the working directory (VS Code/Positron) and/or RStudio project.\n\nrenv::activate()\n\n\n\n\nBy default, base R packages are installed in a system-level directory (e.g., under Program Files on Windows), while user-installed packages are typically stored in a user-specific location like AppData.\nWhen a new renv environment is initiate, it sets up a project-local library. During package installation, if a needed package already exists elsewhere on your system, renv will create a symbolic link (symlink) to that existing package to avoid duplicating files across multiple projects. This behavior saves disk space and speeds up environment setup.\nHowever, in my workflow, I use OneDrive to access projects across multiple machines and this symlink-based approach can cause issues.\nTo avoid symlinks entirely and ensure all packages are physically stored within the project (mimicking Python’s venv behavior), I add the following line a project’s .Rprofile file:\n\noptions(renv.settings.use.cache = FALSE) # Set to false to prevent symlinks\n\nThe following commands can be used to check library paths and settings to ensure the renv is properly configured.\n\nrenv::settings$use.cache()\nrenv::paths$library() # Check libraries\n\n\n\n\nUpon startup, renv scans the project files to detect which R functions are used, in order to identify missing packages and prompt you to install any missing dependencies. While useful, this scanning process can slow down loading the renv, especially if your project includes large or irrelevant files such as, Word documents, PDFs, or Python libraries.\nThe solution to overcome is to create a .renvignore file. Any file type or directory specified in this file will be excluded from scanning up loading an renv.\nTo create the file in Positron, right-click in the Explorer pane and choose “New File…”, then name the file .renvignore, open the saved file and add separate lines for directories or file types.\n\n/py_env # exclude the py_env directory\n\n*.html  # excludes all .html files\n*.yml   # excludes all .yml files\n*.ipynb # excludes all .ipynb files\n\n\n\n\n\nrenv::install()\n\n\n\n\n\nrenv::status()\nrenv::snapshot()"
+  },
+  {
+    "objectID": "how-to/setup_venv.html",
+    "href": "how-to/setup_venv.html",
+    "title": "Set up venv in Python",
+    "section": "",
+    "text": "Similar to R, installing Python creates a global environment. However, it is recommended to create a virtual environment for each project akin to an renv in R. Creating a virtual environment for each project avoids package conflicts amongs multiple projects. The virtual environment should be created in the root directory of the project folder.\n\n\nTo create a Python virtual environment:\n\nOpen Positron/VS Code/RStudio\n\nIf using RStudio, ensure Powershell is your designated terminal in Global Options\n\nSelect the Terminal tab\nNavigate to the project’s root directory\nExecute the following command replacing [virtual-environment-name] with the name of the environment.\n\n\npython -m venv [virtual-environment-name]\n\n# Alternative command if the above does not work\npy -m venv [virtual-environment-name]\n\nn.b. In Positron, creating a virtual environment may result in a message to install ipykernel. Select yes if prompted. Also, depending on the installation, the python -m venv command may not work, but the py -m venv will. This could be due to different configurations of how python was installed on a machine or whether or not its set in the path.\n\n\n\nAfter a virtual environment is created it must be activated. In R, an renv enabled project will always load the designated renv. In contrast, a Python virtual environment has to be activated manually. To activate a Python virtual environment, use the Windows PowerShell to navigate to the root project directory. From there run the Activateps1 file. When the python environment is active, the name of command prompt will change to show the virtual environment name in parentheses1. If using Command Prompt as your shell, then execute the activate.bat file.\n\n.\\py_env\\Scripts\\Activate.ps1\n\n\n\n\nUpon restarting Positron, I’ve encountered a spawn cmd noent error and the application fails to activate the virtual environment. To overcome this error, set PATH environment variable to “C:\\Windows\\System32\\” per this post from baibalorenzo."
+  },
+  {
+    "objectID": "how-to/setup_venv.html#create-a-virtual-environment",
+    "href": "how-to/setup_venv.html#create-a-virtual-environment",
+    "title": "Set up venv in Python",
+    "section": "",
+    "text": "To create a Python virtual environment:\n\nOpen Positron/VS Code/RStudio\n\nIf using RStudio, ensure Powershell is your designated terminal in Global Options\n\nSelect the Terminal tab\nNavigate to the project’s root directory\nExecute the following command replacing [virtual-environment-name] with the name of the environment.\n\n\npython -m venv [virtual-environment-name]\n\n# Alternative command if the above does not work\npy -m venv [virtual-environment-name]\n\nn.b. In Positron, creating a virtual environment may result in a message to install ipykernel. Select yes if prompted. Also, depending on the installation, the python -m venv command may not work, but the py -m venv will. This could be due to different configurations of how python was installed on a machine or whether or not its set in the path."
+  },
+  {
+    "objectID": "how-to/setup_venv.html#activate-a-virtual-environment",
+    "href": "how-to/setup_venv.html#activate-a-virtual-environment",
+    "title": "Set up venv in Python",
+    "section": "",
+    "text": "After a virtual environment is created it must be activated. In R, an renv enabled project will always load the designated renv. In contrast, a Python virtual environment has to be activated manually. To activate a Python virtual environment, use the Windows PowerShell to navigate to the root project directory. From there run the Activateps1 file. When the python environment is active, the name of command prompt will change to show the virtual environment name in parentheses1. If using Command Prompt as your shell, then execute the activate.bat file.\n\n.\\py_env\\Scripts\\Activate.ps1"
+  },
+  {
+    "objectID": "how-to/setup_venv.html#spawn-cmd-noent-error",
+    "href": "how-to/setup_venv.html#spawn-cmd-noent-error",
+    "title": "Set up venv in Python",
+    "section": "",
+    "text": "Upon restarting Positron, I’ve encountered a spawn cmd noent error and the application fails to activate the virtual environment. To overcome this error, set PATH environment variable to “C:\\Windows\\System32\\” per this post from baibalorenzo."
+  },
+  {
+    "objectID": "how-to/setup_venv.html#install-modules",
+    "href": "how-to/setup_venv.html#install-modules",
+    "title": "Set up venv in Python",
+    "section": "Install modules",
+    "text": "Install modules\nWhen a virtual environment is activated all subsequently installed packages will only be available in that environment. To install packages use pip, the package installer for python in the Terminal tab. This marks as an important difference between R and Python. In R, packages can be installed from the console. In Python, packages need to be installed from the shell/terminal in an activated environment.\n\npip install [module-name]"
+  },
+  {
+    "objectID": "how-to/setup_venv.html#save-modules-in-a-virtual-environment-to-requirements.txt",
+    "href": "how-to/setup_venv.html#save-modules-in-a-virtual-environment-to-requirements.txt",
+    "title": "Set up venv in Python",
+    "section": "Save modules in a virtual environment to requirements.txt",
+    "text": "Save modules in a virtual environment to requirements.txt\nAfter installing all desired packages, one can create a “requirements.txt” file. This file records each package and its version which can later be used to install the same set of packages in a different environment.\n\npip freeze &gt; requirements.txt"
+  },
+  {
+    "objectID": "how-to/setup_venv.html#install-modules-from-requirements.txt",
+    "href": "how-to/setup_venv.html#install-modules-from-requirements.txt",
+    "title": "Set up venv in Python",
+    "section": "Install modules from requirements.txt",
+    "text": "Install modules from requirements.txt\nIf a requirements.txt file is available from a different project using the same packages, that file can be copied and pasted into the virtual environment directory and used to automatically install packages.\n\npip install -r requirements.txt"
+  },
+  {
+    "objectID": "how-to/setup_venv.html#check-quarto-installation",
+    "href": "how-to/setup_venv.html#check-quarto-installation",
+    "title": "Set up venv in Python",
+    "section": "Check Quarto installation",
+    "text": "Check Quarto installation\nIn an activated virtual environment, run the following command to check the Quarto installation. This command checks that Quarto and Python are configured properly. In my experience, the python packages nbformat and nbclient are often required for Quarto to work properly.\n\nquarto check\n\npip install nbformat\n\npip install nbclient\n\nIf the Quarto installation is properly configured, create a .qmd document to test it. Copy and paste the .qmd code in this Quarto link and save the file as matplotlib_demo.qmd. Next, install matplotlib to the virtual environment using pip install. Finally, render the .qmd file using the “Preview” button near the top right hand corner of the text editor in Positron. This button looks like an icon for a newspaper. If the file renders, then you’re good to go. If not there may be some additional troubleshooting to go through.\n\npip install matplotlib"
+  },
+  {
+    "objectID": "how-to/setup_venv.html#footnotes",
+    "href": "how-to/setup_venv.html#footnotes",
+    "title": "Set up venv in Python",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nIt is possible that the desired virtual environment is activated, but does not appear so because the command prompt does not display the name in parentheses. Positron will display a message in the lower right hand corner of the application when this occurs.↩︎"
+  },
+  {
+    "objectID": "how-to/configure_saspy.html",
+    "href": "how-to/configure_saspy.html",
+    "title": "Configure SASPy in venv",
+    "section": "",
+    "text": "Integrating Python and SAS with SASPy, is a great way to take advantage of the data manipulation capabilities of Python and the analytical capabilities of SAS. The following instructions are to configure a locally installed version of SAS with Python (refer to the SASPy documentation for additional options). This combination streamlines the process of preparing and manipulating data with Python, performing statistical procedures with SAS, and preparing reports with Quarto all within one .qmd file.\n\n\n\nActivate the Python virtual environment\nInstall SASPy\n\n\npip install saspy\n\n\n\n\nIf the goal is to render Quarto documents that take advantage of SAS and Python, then this is a necessary step to ensure that rendering a Quarto document will load the proper virtual environment. In order for Quarto to load a virtual environment, it must be registered. In a PowerShell terminal prompt use the following command to see the available registered evironments.\n\njupyter kernelspec list\n\nA list of “Available kernels:” should appear. If the virtual environment is not listed, then register it with the following command.\n\npython -m ipykernel install --user --name=[venv] --display-name=[\"venv\"]\n\nIf the environment is already listed, then proceed to the next step.\n\n\n\n\nStart a Python console or continue in the activated Python environment in PowerShell.\nCreate a personal template cfg file. This creates a file that will be modified and used to configure SASPy. When executing the autocft.main() command, the path of the personal template file will be listed upon execution. # need to be modified.\n\n\n# Load the autocfg function from the saspy module\nfrom saspy import autocfg\n\n# Create a template personal cfg file that is used to configure SAS sessions\nautocfg.main() \n\n\nNavigate to the path of the displayed directory\nOpen the sascfg_personal.py file\nModify the file to set the path of the Java run time executable\n\nInstall Java SE Runtime Environment if needed\n\nSave and close the file\n\n\nautogen_winlocal = {\n    \"java\"      : \"C:\\\\Program Files (x86)\\\\Java\\\\jre1.8.0_451\\\\bin\\\\java.exe\",\n    \"encoding\"  : \"windows-1252\"}\n\n\n\n\n\nimport saspy\n\nsas = saspy.SASsession(cfgname = 'autogen_winlocal')\n\n\n\n\nOnce SASPy is configured, the Quarto document can be set to use a specific python environment. Simpy modify the yaml header of the quarto document to the name of the desired virtual environment without the square brackets.\n\n---\njupyter: [venv]\n---"
+  },
+  {
+    "objectID": "how-to/configure_saspy.html#install-saspy",
+    "href": "how-to/configure_saspy.html#install-saspy",
+    "title": "Configure SASPy in venv",
+    "section": "",
+    "text": "Activate the Python virtual environment\nInstall SASPy\n\n\npip install saspy"
+  },
+  {
+    "objectID": "how-to/configure_saspy.html#register-the-virtual-environment",
+    "href": "how-to/configure_saspy.html#register-the-virtual-environment",
+    "title": "Configure SASPy in venv",
+    "section": "",
+    "text": "If the goal is to render Quarto documents that take advantage of SAS and Python, then this is a necessary step to ensure that rendering a Quarto document will load the proper virtual environment. In order for Quarto to load a virtual environment, it must be registered. In a PowerShell terminal prompt use the following command to see the available registered evironments.\n\njupyter kernelspec list\n\nA list of “Available kernels:” should appear. If the virtual environment is not listed, then register it with the following command.\n\npython -m ipykernel install --user --name=[venv] --display-name=[\"venv\"]\n\nIf the environment is already listed, then proceed to the next step."
+  },
+  {
+    "objectID": "how-to/configure_saspy.html#configure-saspy-1",
+    "href": "how-to/configure_saspy.html#configure-saspy-1",
+    "title": "Configure SASPy in venv",
+    "section": "",
+    "text": "Start a Python console or continue in the activated Python environment in PowerShell.\nCreate a personal template cfg file. This creates a file that will be modified and used to configure SASPy. When executing the autocft.main() command, the path of the personal template file will be listed upon execution. # need to be modified.\n\n\n# Load the autocfg function from the saspy module\nfrom saspy import autocfg\n\n# Create a template personal cfg file that is used to configure SAS sessions\nautocfg.main() \n\n\nNavigate to the path of the displayed directory\nOpen the sascfg_personal.py file\nModify the file to set the path of the Java run time executable\n\nInstall Java SE Runtime Environment if needed\n\nSave and close the file\n\n\nautogen_winlocal = {\n    \"java\"      : \"C:\\\\Program Files (x86)\\\\Java\\\\jre1.8.0_451\\\\bin\\\\java.exe\",\n    \"encoding\"  : \"windows-1252\"}"
+  },
+  {
+    "objectID": "how-to/configure_saspy.html#check-that-saspy-can-start-a-session",
+    "href": "how-to/configure_saspy.html#check-that-saspy-can-start-a-session",
+    "title": "Configure SASPy in venv",
+    "section": "",
+    "text": "import saspy\n\nsas = saspy.SASsession(cfgname = 'autogen_winlocal')"
+  },
+  {
+    "objectID": "how-to/configure_saspy.html#configure-the-yaml-header-of-quarto-document",
+    "href": "how-to/configure_saspy.html#configure-the-yaml-header-of-quarto-document",
+    "title": "Configure SASPy in venv",
+    "section": "",
+    "text": "Once SASPy is configured, the Quarto document can be set to use a specific python environment. Simpy modify the yaml header of the quarto document to the name of the desired virtual environment without the square brackets.\n\n---\njupyter: [venv]\n---"
+  },
+  {
+    "objectID": "how-to/work_w_saspy.html",
+    "href": "how-to/work_w_saspy.html",
+    "title": "Work with SASPy",
+    "section": "",
+    "text": "Initiate a session\nOnce SASPy is configured the first step win working with SASPy is to initiate a session. This will launch a SAS session in the background that will be available to run statistical analyses on any input data.\n\n# Data manipulation\nimport pandas as pd\n\n# Module with sample data set\nimport bambi as bmb\n\n# Interface with SAS\nimport saspy\n\n# Loads a custom function\nfrom my_fx.utilities import format_pval_df\n\n\nsas = saspy.SASsession(cfgname = 'autogen_winlocal')\n\n\n\nLoad an example data set\n\ndata = bmb.load_data(\"sleepstudy\")\n\n\ndata.head()\n\n\n\nSend data to SAS\nThe next step in working with SASPy is to send a Pandas data frame to SAS. This command will send the data frame “data” to the background SAS session. Before sending data to SAS, it may be a good idea to double check that SAS has the proper formatting for dates and that the values, if categorical are recoded to comply with SAS column and value conventions. By default this data will be named _df and will be found in the work library\n\nsas_data = sas.df2sd(data, verbose = False)\n\n\n\nSubmit SAS commands\nThe main functions to submit sas commands on data that is available in the sas session are sas.submit() and sas.submitLST(). The primary difference is that the LST version of the function will display the log and any output in the viewer when working in Positron. I personally use the LST version of the function to ensure that the SAS procedures are running correctly. When it is determined that the SAS procedures are running correctly. I then will remove the LST and then extract the tables from SAS to display in a Quarto document. To save the output of SAS procedures I use ods output statements as in the example below.\n\n# Submit SAS commands, use sas.submitLST() to display output in viewer\nc = sas.submitLST(\n\"\"\"\n\nods output Tests3=type3_results;\n\nproc mixed data = work._df;\n  class Subject Days;\n  model Reaction = Days;\n  random intercept/subject = Subject;\nrun;\n\n\"\"\")\n\n\n\nRetrieve ods output tables from SAS\n\ntype3_results = sas.sasdata(\"type3_results\", libref = \"work\").to_df()\n\n# Format the p values\ntype3_results[\"ProbF\"] = format_pval_df(type3_results['ProbF'])\n\n# Round all numberical values, set index and display\ntype3_results.round(2).set_index(\"Effect\")"
+  },
+  {
+    "objectID": "how-to/project_module.html",
+    "href": "how-to/project_module.html",
+    "title": "Create a project specific module in Python",
+    "section": "",
+    "text": "In venv-packages create a new folder “my_fx”\nIn the my_fx folder, create a new file called “init.py”\nCreate a new .py script that will contain your functions e.g. utilities.py, tables.py\nDefine Python functions within the script\nImport functions using from [folder].[script] import [function]\n\n\n# Example function to format p-values in a column of a pandas data frame\n# defined in a script named utilities.py\ndef format_pval_df(pvals):\n    \"\"\"\n    Format a pandas series of p-values.\n    - If p &lt; 0.0001, return \"&lt;0.0001\"\n    - Else, format to specified number of digits\n\n    Parameters:\n    pvals : pandas Series or array-like\n    digits : int, number of decimal digits to display\n\n    Returns:\n    Formatted pandas Series of strings\n    \"\"\"\n    digits=4\n\n    return pvals.apply(lambda p: \"&lt;0.0001\" if p &lt; 0.0001 else f\"{p:.{digits}f}\")\n\n\n# Load the custom function\nfrom my_fx.utilities import format_pval_df"
+  }
+]

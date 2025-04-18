@@ -1,0 +1,73 @@
+---
+title: "Set up venv in Python"
+html:
+    toc: true
+
+execute:
+  eval: false
+---
+
+# Configure virtual environments in Python 
+Similar to R, installing Python creates a global environment. However, it is recommended to create a virtual environment for each project akin to an renv in R. Creating a virtual environment for each project avoids package conflicts amongs multiple projects. The virtual environment should be created in the root directory of the project folder.
+
+## Create a virtual environment
+To create a Python virtual environment:
+
+* Open Positron/VS Code/RStudio
+  * If using RStudio, ensure Powershell is your designated terminal in Global Options
+* Select the Terminal tab
+* Navigate to the project's root directory
+* Execute the following command replacing [virtual-environment-name] with the name of the environment.
+```{r}
+python -m venv [virtual-environment-name]
+
+# Alternative command if the above does not work
+py -m venv [virtual-environment-name]
+```
+
+n.b. In Positron, creating a virtual environment may result in a message to install ipykernel. Select yes if prompted. Also, depending on the installation, the python -m venv command may not work, but the py -m venv will. This could be due to different configurations of how python was installed on a machine or whether or not its set in the path.
+
+## Activate a virtual environment
+After a virtual environment is created it must be activated. In R, an renv enabled project will always load the designated renv. In contrast, a Python virtual environment has to be activated manually. To activate a Python virtual environment, use the Windows PowerShell to navigate to the root project directory. From there run the Activateps1 file. When the python environment is active, the name of command prompt will change to show the virtual environment name in parentheses[^1]. If using Command Prompt as your shell, then execute the activate.bat file.
+```{r}
+.\py_env\Scripts\Activate.ps1
+```
+
+## spawn cmd noent error
+Upon restarting Positron, I've encountered a `spawn cmd noent` error and the application fails to activate the virtual environment. To overcome this error, set PATH environment variable to "C:\\Windows\\System32\\" per	this [post](https://github.com/forcedotcom/salesforcedx-vscode/issues/1818) from baibalorenzo.
+
+# Package management
+## Install modules
+When a virtual environment is activated all subsequently installed packages will only be available in that environment. To install packages use pip, the package installer for python in the Terminal tab. This marks as an important difference between R and Python. In R, packages can be installed from the console. In Python, packages need to be installed from the shell/terminal in an activated environment.
+```{r}
+pip install [module-name]
+```
+
+## Save modules in a virtual environment to requirements.txt
+After installing all desired packages, one can create a "requirements.txt" file. This file records each package and its version which can later be used to install the same set of packages in a different environment.
+```{r}
+pip freeze > requirements.txt
+```
+
+## Install modules from requirements.txt
+If a requirements.txt file is available from a different project using the same packages, that file can be copied and pasted into the virtual environment directory and used to automatically install packages.
+```{r}
+pip install -r requirements.txt
+```
+
+## Check Quarto installation
+In an activated virtual environment, run the following command to check the Quarto installation. This command checks that Quarto and Python are configured properly. In my experience, the python packages nbformat and nbclient are often required for Quarto to work properly. 
+```{r}
+quarto check
+
+pip install nbformat
+
+pip install nbclient
+```
+
+If the Quarto installation is properly configured, create a .qmd document to test it. Copy and paste the .qmd code in this Quarto [link](https://quarto.org/docs/computations/python.html) and save the file as matplotlib_demo.qmd. Next, install matplotlib to the virtual environment using pip install. Finally, render the .qmd file using the "Preview" button near the top right hand corner of the text editor in Positron. This button looks like an icon for a newspaper. If the file renders, then you're good to go. If not there may be some additional troubleshooting to go through.
+```{r}
+pip install matplotlib
+```
+
+[^1]: It is possible that the desired virtual environment is activated, but does not appear so because the command prompt does not display the name in parentheses. Positron will display a message in the lower right hand corner of the application when this occurs.

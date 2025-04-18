@@ -1,0 +1,78 @@
+---
+title: "Configure SASPy in venv"
+html:
+    toc: true
+
+execute:
+  eval: false
+
+jupyter: py_env
+---
+
+# Configure SASPy
+Integrating Python and SAS with [SASPy](https://sassoftware.github.io/saspy/index.html), is a great way to take advantage of the data manipulation capabilities of Python and the analytical capabilities of SAS. The following instructions are to configure a locally installed version of SAS with Python (refer to the SASPy documentation for additional options). This combination streamlines the process of preparing and manipulating data with Python, performing statistical procedures with SAS, and preparing reports with Quarto all within one .qmd file.
+
+
+## Install SASPy
+1. Activate the Python virtual environment
+2. Install SASPy
+```{python}
+pip install saspy
+```
+
+## Register the virtual environment
+If the goal is to render Quarto documents that take advantage of SAS and Python, then this is a necessary step to ensure that rendering a Quarto document will load the proper virtual environment. In order for Quarto to load a virtual environment, it must be registered. In a PowerShell terminal prompt use the following command to see the available registered evironments.
+```{python}
+jupyter kernelspec list
+```
+
+A list of "Available kernels:" should appear. If the virtual environment is not listed, then register it with the following command.
+```{python}
+python -m ipykernel install --user --name=[venv] --display-name=["venv"]
+```
+
+If the environment is already listed, then proceed to the next step.
+
+## Configure SASPy
+
+1. Start a Python console or continue in the activated Python environment in PowerShell.
+2. Create a personal template cfg file. This creates a file that will be modified and used to configure SASPy. When executing the autocft.main() command, the path of the personal template file will be displayed upon execution. Make not of the path as this file will need to be modified.
+
+```{python}
+# Load the autocfg function from the saspy module
+from saspy import autocfg
+
+# Create a template personal cfg file that is used to configure SAS sessions
+autocfg.main() 
+```
+
+3. Navigate to the path of the displayed directory
+4. Open the sascfg_personal.py file
+5. Modify the file to set the path of the Java run time executable
+    * Install [Java SE Runtime Environment](https://www.java.com/en/download/manual.jsp) if needed
+6. Save and close the file
+
+```{python}
+autogen_winlocal = {
+	"java"      : "C:\\Program Files (x86)\\Java\\jre1.8.0_451\\bin\\java.exe",
+	"encoding"  : "windows-1252"}
+```
+
+
+## Check that SASPy can start a session
+```{python}
+import saspy
+
+sas = saspy.SASsession(cfgname = 'autogen_winlocal')
+```
+
+
+## Configure the yaml header of Quarto document
+Once SASPy is configured, the Quarto document can be set to use a specific python environment. Simpy modify the yaml header of the quarto document to the name of the desired virtual environment without the square brackets.
+
+```{python}
+---
+jupyter: [venv]
+---
+
+```
